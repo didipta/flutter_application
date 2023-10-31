@@ -8,7 +8,17 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeActivity());
+    return MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        
+        home: HomeActivity());
   }
 }
 
@@ -19,10 +29,10 @@ class HomeActivity extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home Activity"),
-        backgroundColor: Color.fromARGB(120, 158, 80, 152),
       ),
-      body: const Center(
-        child: Text("Hello World"),
+      drawer: const Drawer(),
+      body: const Text(
+        "Hello World",
       ),
     );
   }
