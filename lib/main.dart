@@ -69,8 +69,53 @@ class HomeActivity extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const Drawer(
-        child: Text("Hello World"),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 50,
+              child: DrawerHeader(
+                padding: EdgeInsets.zero,
+
+                child: Image.network(
+                  'https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png',
+                ),
+                // child: UserAccountsDrawerHeader(
+
+                //   decoration: BoxDecoration(
+
+                //     color: Color.fromARGB(255, 233, 188, 41),
+                //   ),
+                //   accountName: Text("Rahul"),
+                //   accountEmail: Text("rahul@gmail.com"),
+                //   currentAccountPicture: Image.network(
+                //       "https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png"),
+                // ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: const Text("Item 1"),
+              onTap: () {
+                MySnackBar("Item 1", context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.search),
+              title: const Text("Item 2"),
+              onTap: () {
+                MySnackBar("Item 2", context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: const Text("person"),
+              onTap: () {
+                MySnackBar("Item 3", context);
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 10,
@@ -82,6 +127,35 @@ class HomeActivity extends StatelessWidget {
           Icons.add,
           color: Color.fromARGB(255, 228, 224, 224),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Search",
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+            backgroundColor: Colors.blue,
+          ),
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            MySnackBar("Home", context);
+          } else if (index == 1) {
+            MySnackBar("Search", context);
+          } else if (index == 2) {
+            MySnackBar("Profile", context);
+          }
+        },
       ),
       body: const Text(
         "Hello World",
