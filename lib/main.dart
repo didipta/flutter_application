@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/router/app_page.dart';
+import 'package:flutter_application_1/app/view/home_page.dart';
+import 'package:http/http.dart' as http;
 
 main() {
   runApp(const MyApp());
@@ -9,17 +12,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: HomeActivity());
+      // theme: ThemeData(
+      //   primarySwatch: Colors.red,
+      // ),
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   primarySwatch: Colors.blue,
+      // ),
+      // debugShowCheckedModeBanner: false,
+      // home: HomeActivity());
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes: Apppages.routes,
+    );
   }
 }
+
+var stringdata;
 
 class HomeActivity extends StatelessWidget {
   const HomeActivity({Key? key}) : super(key: key);
@@ -36,34 +45,20 @@ class HomeActivity extends StatelessWidget {
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  MyAlerdiloge(context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return AlertDialog(
-          //   title: Text("Alert"),
-          //   content: Text("Are you sure?"),
-          //   actions: [
-          //     TextButton(onPressed: (){}, child: Text("Yes")),
-          //     TextButton(onPressed: (){}, child: Text("No")),
-          //   ],
-          // );
+  // Future apicall() async {
+  //   http.Response response;
+  //   response =
+  //       await http.get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
+  //   if (response.statusCode == 200) {
+  //     stringdata = response.body;
+  //   } else {
+  //     stringdata = "Error";
+  //   }
+  // }
 
-          return Expanded(
-              child: AlertDialog(
-            title: Text("Alert"),
-            content: Text("Are you sure?"),
-            actions: [
-              TextButton(onPressed: () {
-                MySnackBar("Ok", context);
-                Navigator.of(context).pop();
-
-              }, child: Text("Yes")),
-              TextButton(onPressed: () {Navigator.of(context).pop();}, child: Text("No")),
-            ],
-          ));
-        });
-  }
+  // void initState() {
+  //   apicall();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,47 +96,25 @@ class HomeActivity extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            GestureDetector(
-              onTap: () {
-                MySnackBar("Hello World", context);
-              },
-              child: SizedBox(
-                height: 50,
-                width: 50,
-                child: DrawerHeader(
-                  padding: EdgeInsets.all(10),
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Image.network(
-                            'https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png',
-                            width: 50, // Adjust the width as needed
-                            height: 50, // Adjust the height as needed
-                          ),
-                          SizedBox(
-                              width:
-                                  1), // Add some spacing between the image and text
-                          Text(
-                            "Flutter App",
-                            style: TextStyle(
-                                fontSize: 20), // Adjust the style as needed
-                          ),
-                        ],
-                      )),
+            SizedBox(
+              height: 50,
+              child: DrawerHeader(
+                padding: EdgeInsets.zero,
 
-                  // child: UserAccountsDrawerHeader(
-
-                  //   decoration: BoxDecoration(
-
-                  //     color: Color.fromARGB(255, 233, 188, 41),
-                  //   ),
-                  //   accountName: Text("Rahul"),
-                  //   accountEmail: Text("rahul@gmail.com"),
-                  //   currentAccountPicture: Image.network(
-                  //       "https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png"),
-                  // ),
+                child: Image.network(
+                  'https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png',
                 ),
+                // child: UserAccountsDrawerHeader(
+
+                //   decoration: BoxDecoration(
+
+                //     color: Color.fromARGB(255, 233, 188, 41),
+                //   ),
+                //   accountName: Text("Rahul"),
+                //   accountEmail: Text("rahul@gmail.com"),
+                //   currentAccountPicture: Image.network(
+                //       "https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png"),
+                // ),
               ),
             ),
             ListTile(
@@ -208,9 +181,7 @@ class HomeActivity extends StatelessWidget {
           }
         },
       ),
-      body: Center(child:ElevatedButton(onPressed: (){
-        MyAlerdiloge(context);
-      }, child: Text("Click Me"))),
+      body: Homepages(),
     );
   }
 }
