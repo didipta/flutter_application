@@ -36,6 +36,35 @@ class HomeActivity extends StatelessWidget {
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  MyAlerdiloge(context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return AlertDialog(
+          //   title: Text("Alert"),
+          //   content: Text("Are you sure?"),
+          //   actions: [
+          //     TextButton(onPressed: (){}, child: Text("Yes")),
+          //     TextButton(onPressed: (){}, child: Text("No")),
+          //   ],
+          // );
+
+          return Expanded(
+              child: AlertDialog(
+            title: Text("Alert"),
+            content: Text("Are you sure?"),
+            actions: [
+              TextButton(onPressed: () {
+                MySnackBar("Ok", context);
+                Navigator.of(context).pop();
+
+              }, child: Text("Yes")),
+              TextButton(onPressed: () {Navigator.of(context).pop();}, child: Text("No")),
+            ],
+          ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,25 +101,47 @@ class HomeActivity extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            SizedBox(
-              height: 50,
-              child: DrawerHeader(
-                padding: EdgeInsets.zero,
+            GestureDetector(
+              onTap: () {
+                MySnackBar("Hello World", context);
+              },
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: DrawerHeader(
+                  padding: EdgeInsets.all(10),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Image.network(
+                            'https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png',
+                            width: 50, // Adjust the width as needed
+                            height: 50, // Adjust the height as needed
+                          ),
+                          SizedBox(
+                              width:
+                                  1), // Add some spacing between the image and text
+                          Text(
+                            "Flutter App",
+                            style: TextStyle(
+                                fontSize: 20), // Adjust the style as needed
+                          ),
+                        ],
+                      )),
 
-                child: Image.network(
-                  'https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png',
+                  // child: UserAccountsDrawerHeader(
+
+                  //   decoration: BoxDecoration(
+
+                  //     color: Color.fromARGB(255, 233, 188, 41),
+                  //   ),
+                  //   accountName: Text("Rahul"),
+                  //   accountEmail: Text("rahul@gmail.com"),
+                  //   currentAccountPicture: Image.network(
+                  //       "https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png"),
+                  // ),
                 ),
-                // child: UserAccountsDrawerHeader(
-
-                //   decoration: BoxDecoration(
-
-                //     color: Color.fromARGB(255, 233, 188, 41),
-                //   ),
-                //   accountName: Text("Rahul"),
-                //   accountEmail: Text("rahul@gmail.com"),
-                //   currentAccountPicture: Image.network(
-                //       "https://static-00.iconduck.com/assets.00/flutter-plain-icon-1655x2048-tm6fsmjb.png"),
-                // ),
               ),
             ),
             ListTile(
@@ -157,9 +208,9 @@ class HomeActivity extends StatelessWidget {
           }
         },
       ),
-      body: const Text(
-        "Hello World",
-      ),
+      body: Center(child:ElevatedButton(onPressed: (){
+        MyAlerdiloge(context);
+      }, child: Text("Click Me"))),
     );
   }
 }
