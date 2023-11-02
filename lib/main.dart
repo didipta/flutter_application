@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/router/app_page.dart';
+import 'package:flutter_application_1/app/view/home_page.dart';
+import 'package:http/http.dart' as http;
 
 main() {
   runApp(const MyApp());
@@ -9,17 +12,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: HomeActivity());
+      // theme: ThemeData(
+      //   primarySwatch: Colors.red,
+      // ),
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   primarySwatch: Colors.blue,
+      // ),
+      // debugShowCheckedModeBanner: false,
+      // home: HomeActivity());
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes: Apppages.routes,
+    );
   }
 }
+
+var stringdata;
 
 class HomeActivity extends StatelessWidget {
   const HomeActivity({Key? key}) : super(key: key);
@@ -35,6 +44,21 @@ class HomeActivity extends StatelessWidget {
     );
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+  // Future apicall() async {
+  //   http.Response response;
+  //   response =
+  //       await http.get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
+  //   if (response.statusCode == 200) {
+  //     stringdata = response.body;
+  //   } else {
+  //     stringdata = "Error";
+  //   }
+  // }
+
+  // void initState() {
+  //   apicall();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -157,9 +181,7 @@ class HomeActivity extends StatelessWidget {
           }
         },
       ),
-      body: const Text(
-        "Hello World",
-      ),
+      body: Homepages(),
     );
   }
 }
