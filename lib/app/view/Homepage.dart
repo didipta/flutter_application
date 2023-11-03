@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/view/Home_page.dart';
+import 'package:flutter_application_1/app/view/Photopage.dart';
 import 'package:flutter_application_1/app/view/Postdetails.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +11,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _currentIndex = 0; // Initially, the Home screen is selected.
+
+  // Define a list of screens or widgets that will be displayed based on the selected index.
+  final List<Widget> _screens = [Homepages(), Photopage()];
+
+  // Callback function to handle the item selection in the bottom navigation bar.
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +94,25 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Homepages(),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 }

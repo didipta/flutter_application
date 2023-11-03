@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/controller/Post_controller.dart';
+import 'package:flutter_application_1/app/view/Commonview/Card_widget.dart';
 import 'package:flutter_application_1/app/view/Postdetails.dart';
 import 'package:flutter_application_1/model.dart';
 import 'package:get/get.dart';
@@ -21,47 +22,35 @@ class _HomepagesState extends State<Homepages> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: postcontroller.fetchData(),
-        builder: (context, sanpshot) {
-          if (sanpshot.hasData) {
-            return ListView.builder(
-              padding: EdgeInsets.all(10),
-              itemCount: postcontroller.postdata.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    tileColor: Color.fromARGB(255, 194, 75, 75),
-                    textColor: const Color.fromARGB(255, 240, 237, 237),
-                    contentPadding: EdgeInsets.all(10),
-                    leading: Icon(Icons.person),
-                    title: Container(
-                      padding: EdgeInsets.all(2), // Adjust padding as needed
-                      child: Text(
-                        postcontroller.postdata[index]['title'],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    subtitle: Text(postcontroller.postdata[index]['body']),
-                    trailing: Icon(Icons.delete),
-                    onTap: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Postdetails(
-                                  id: postcontroller.postdata[index]['id']
-                                      .toString())))
-                    },
-                  ),
-                );
-              },
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        });
+      future: postcontroller.fetchData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData) {
+          return Center(child: Text('No data available'));
+        } else {
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, // Number of columns in the grid
+              childAspectRatio:
+                  0.7, // Adjust as needed for your card aspect ratio
+              crossAxisSpacing: 8.0, // Adjust as needed
+              mainAxisSpacing: 8.0, // Adjust as needed
+            ),
+            itemCount: postcontroller.postdata.length,
+            itemBuilder: (context, index) {
+              return Cardwidget(
+                  id: postcontroller.postdata[index]['id'].toString(),
+                  title: postcontroller.postdata[index]['title'].toString(),
+                  body: postcontroller.postdata[index]['body'].toString(),
+                  userId: postcontroller.postdata[index]['userId'].toString());
+            },
+          );
+        }
+      },
+    );
   }
 
   // Future<List<postdata>> getdata() async {
