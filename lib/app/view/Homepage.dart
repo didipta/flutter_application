@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/view/Home_page.dart';
-import 'package:flutter_application_1/app/view/Photopage.dart';
-import 'package:flutter_application_1/app/view/Postdetails.dart';
+import 'package:flutter_application_1/app/view/Product_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,7 +13,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0; // Initially, the Home screen is selected.
 
   // Define a list of screens or widgets that will be displayed based on the selected index.
-  final List<Widget> _screens = [Homepages(), Photopage()];
+  final List<Widget> _screens = [Homepages(), Productpage()];
 
   // Callback function to handle the item selection in the bottom navigation bar.
   void _onItemTapped(int index) {
@@ -39,7 +38,7 @@ class _HomeState extends State<Home> {
         toolbarOpacity: 0.9,
         elevation: 5,
         shadowColor: Color.fromRGBO(226, 226, 226, 0.253),
-        backgroundColor: Color.fromARGB(255, 233, 188, 41),
+        backgroundColor: Color.fromARGB(255, 233, 41, 159),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_bag)),
           IconButton(

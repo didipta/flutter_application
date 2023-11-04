@@ -12,9 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //   primarySwatch: Colors.red,
-      // ),
+      theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 233, 41, 159),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Color.fromARGB(255, 233, 41, 159),
+          )),
       // darkTheme: ThemeData(
       //   brightness: Brightness.dark,
       //   primarySwatch: Colors.blue,
